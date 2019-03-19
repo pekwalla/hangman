@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+  
+</head>
+<body>
+      
+        <header>
+            <h1 style="border:2px solid rgb(17, 16, 17); background-color: yellowgreen; width: 600PX;text-align: center;"> HangMan</h1>
+            
+        </header>
+    
+    
+      <div style="border:2px solid Violet; width: 800PX;"> 
+      
+        <h2 style="color:blue; width: 600PX;"id="userchoice-text"></h2>
+        <h3 style="color:blue; width: 600PX;"id="computerandompick-text"></h3>
+
+        <h4 style="color:blue; width: 600PX;"id="found-text"> Letter found</h4>
+        <!--  <h4 style="color:blue; width: 600PX;"id="losses-text"></h4>-->
+        <h5 style="color:blue; width: 600PX;"id="guesses-text">Guesses left </h5>
+        <h5 style="color:blue; width: 600PX;"id="usrGuessesList-text"></h5> 
+        <h5 id = "shadowholdspace"> Here is the shadow of the Word</h5>
+        <h5 id = "computerandompick-text">This is what the word was </h5> 
+        
+      </div>
+
+
+
+<script>
+  ////Theme is best songs from the 90's
+ 
+var words = ['beatles', 'madona', 'jackson' ];
+
+
+// Randomly chooses a choice from the options array. This is the Computer's guess.
+var computerandompick = words [Math.floor(Math.random() * words.length)];
+var wordpick = document.getElementById("computerandompick-text");
+var shadowhold = document.getElementById("shadowholdspace");
+var usrGuessesList = document.getElementById("usrGuessesList-text");
+
+var userChoiceText = document.getElementById("userchoice-text");
+
+var foundText = document.getElementById("found-text");
+//var lossesText = document.getElementById("losses-text");
+var guessesText = document.getElementById("guesses-text");
+
+var wins = 0;
+//var losses = 0;
+var guessesLeft = 7;
+var guessedLetter = [];
+ 
+
+var shadow = [];
+//alert (computerandompick);
+
+for (i = 0; i < computerandompick.length; i++) {
+
+ shadow.push("  " + "-");
+}
+
+//check if each letter of the computerrandompick matches the letter entered by the user.
+
+var arrcomputerrandompick = [];
+arrcomputerrandompick = computerandompick;
+
+document.onkeyup = function(event) { 
+var userGuess = event.key;
+var found = false;
+var allLetters = "abcdefghijklmnoprstuvwxyz";
+
+for (j = 0; j< allLetters.length; j++) {
+  allLetters.charAt(j);
+ // console.log(allLetters.charAt(j));
+  console.log(arrcomputerrandompick.charAt(j));
+}
+
+var letterToGuess = arrcomputerrandompick.charAt(j);
+console.log(userGuess);
+
+guessedLetter.push(" " + userGuess);
+
+
+
+function match () {
+  
+
+  for (i= 0; i< letterToGuess.length; i++) {
+    if (userGuess === letterToGuess) 
+    {
+      
+      wins++
+      found = true;
+      
+   
+                
+    } 
+   
+  }
+  
+}
+
+ 
+
+function noMatch () {
+  
+  for (i= 0; i< letterToGuess.length; i++) {
+    if (userGuess !== letterToGuess[i]) 
+    {
+      found = false;
+      
+    } 
+   
+  }
+      guessesLeft--;
+
+      if (guessesLeft == -1) {
+            alert ("Game Over")
+            location.reload();
+        // reload the page when the game is over
+            
+        }
+}
+
+
+match();
+noMatch();
+
+shadowholdspace.textContent = "The word shadow looks like this " + shadow;
+usrGuessesList.textContent = "  your guessed letter was : " + guessedLetter;
+
+foundText.textContent = "Letter found: " + wins ;
+//lossesText.textContent = "losses: " + losses ; 
+guessesText.textContent = "you have " + " " + guessesLeft + " " + "guesses  Left ";
+
+
+}  
+</script>
+</body>
+</html>
